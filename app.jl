@@ -1,6 +1,6 @@
 # 8:10  -> 8:50 (40 mins) setup dash app + 3d layout
 # 14:30 -> 15:45 (75 mins) finished DashKnots app 
-# 15:45 ->           Publishing to GitHub and Heroku
+# 15:45 ->  16:10 (25 mins) Publishing to GitHub
 
 using Pkg
 Pkg.activate(".")
@@ -54,7 +54,7 @@ function xyz(ps)
     return x, y, z
 end
 
-function toric_knot(m::Int64, n::Int64; R = 2, r = 1, uv_res = [220, 220])
+function torus_knot(m::Int64, n::Int64; R = 2, r = 1, uv_res = [220, 220])
     ϕ(u, v) = [(R + r * cos(u)) * cos(v), (R + r * cos(u)) * sin(v), r * sin(u)]
     α(t) = ϕ(m * t, n * t)
     x(t) = α(t)[1]
@@ -69,7 +69,7 @@ function toric_knot(m::Int64, n::Int64; R = 2, r = 1, uv_res = [220, 220])
     end
     uv_surface([-π, 1.02π, -π, π], ψ, uv_res = uv_res)
 end
-description = dcc_markdown(raw"Toric knots are obtained by winding a curve around a torus 
+description = dcc_markdown(raw"Torus knots are obtained by winding a curve around a torus 
  ($m$ times in parallel direction and $n$ times in the meridian direction). More concretely, if
 
  $$\varphi(u,v) = ((R+r\cos(u))\cos(v), (R+r\cos(u))\sin(v), r\sin(u))$$
@@ -92,9 +92,9 @@ layout = Layout(scene = scene3d, width = 600, height = 600)
 
 mathjax = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"
 app = dash(external_scripts = [mathjax], external_stylesheets = [dbc_themes.BOOTSTRAP])
-app.title = "Dash Toric Knots"
+app.title = "Dash Torus Knots"
 
-knot = toric_knot(2, 3)
+knot = torus_knot(2, 3)
 graph = dbc_spinner(dcc_graph(id = "graph", figure = plot(knot, layout)))
 
 slider_m = dcc_slider(
@@ -120,7 +120,7 @@ input = dbc_row([dbc_col(slider_m, width = Dict("size" => 3, "order" => "first",
  dbc_col(slider_n, width = Dict("size" => 3, "order" => "last", "offset" => 0))])
 app.layout = dbc_container(
     [
-        html_h1(html_center("Toric Knots"))
+        html_h1(html_center("Torus Knots"))
         html_br()
         description
         html_center(graph)
@@ -136,7 +136,7 @@ callback!(
     Input("slider_m", "value"),
     Input("slider_n", "value"),
 ) do m, n
-    knot = toric_knot(m, n)
+    knot = torus_knot(m, n)
     return plot(knot, layout)
 end
 run_server(app, "0.0.0.0", debug = true)
