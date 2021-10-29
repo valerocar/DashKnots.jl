@@ -1,7 +1,3 @@
-# 8:10  -> 8:50 (40 mins) setup dash app + 3d layout
-# 14:30 -> 15:45 (75 mins) finished DashKnots app 
-# 15:45 ->  16:10 (25 mins) Publishing to GitHub
-
 using Pkg
 Pkg.activate(".")
 using PlotlyJS, Zygote, LinearAlgebra
