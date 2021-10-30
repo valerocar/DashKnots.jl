@@ -4,8 +4,6 @@ using PlotlyJS, Zygote, LinearAlgebra
 using Dash, DashCoreComponents, DashHtmlComponents
 using DashBootstrapComponents
 
-
-
 function frenet_frame(x, y, z)
     ẋ(t) = gradient(x, t)[1]
     ẏ(t) = gradient(y, t)[1]
