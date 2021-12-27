@@ -3,7 +3,7 @@ This Julia Dash App renders Torus Knots
 
 ![Demo](TorusKnots.gif) 
 
-To run the app in your own machine, follow this steps: 
+To run the app in your own machine, follow these steps: 
 
 1. Run Julia on a Terminal
 2. using Pkg
